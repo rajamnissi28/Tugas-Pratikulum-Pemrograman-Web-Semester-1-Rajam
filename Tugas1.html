@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rajam, Game Suit</title>
+
+    <style>
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #53fff6, #797b7b);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: auto;
+        }
+
+        .container {
+            background-color: rgb(192, 184, 184);
+            width: 100%;
+            max-width: 650px;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Times New Roman', Times, serif;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
+        .judul-kategori {
+            font-family: 'Times New Roman', Times, serif;
+            margin-bottom: 15px;
+            color: #000000;
+        }
+
+        .kategori {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+            color: #000000;
+        }
+
+        .kategori button {
+            padding: 15px 8px;
+            border: 2px solid #00ff08;
+            border-radius: 12px;
+            background-color: white;
+            color: #00ff08;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .kategori button:hover {
+            background-color: #f0f2ff;
+            transform: translateY(-3px);
+        }
+
+        .kategori button.aktif {
+            background-color: #00ff08;
+            color: #000000;
+            border-color: #00ff08;
+        }
+
+        .aturan {
+            background-color: #d4d4d4;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .aturan h3 {
+            font-family: 'Times New Roman', Times, serif;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
+        .aturan p {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 8px 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .judul-pilihan {
+            font-family: 'Times New Roman', Times, serif;
+            margin-bottom: 15px;
+            color: #000000;
+        }
+
+        .pilihan {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .pilihan button {
+            padding: 20px 5px;
+            border: none;
+            border-radius: 12px;
+            background-color: #00ff08;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .pilihan button:hover {
+            background-color: #ffffff;
+            transform: translateY(-4px);
+        }
+
+        .pilihan button .emoji {
+            display: block;
+            font-size: 35px;
+            margin-bottom: 8px;
+        }
+
+        .hasil {
+            background-color: #d4d4d4;
+            border: 2px solid #d4d4d4;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .hasil h2 {
+            font-family: 'Times New Roman', Times, serif;
+            margin-bottom: 15px;
+            color: #000000;
+        }
+
+        .hasil p {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 12px 0;
+            color: #000000;
+        }
+
+        #hasilAkhir {
+            font-family: 'Times New Roman', Times, serif;
+            margin-top: 20px;
+            margin-bottom: 0;
+            font-size: 22px;
+            color: #000000;
+        }
+
+        @media (max-width: 450px) {
+            .container {
+                padding: 20px;
+            }
+
+            .kategori {
+                gap: 6px;
+            }
+
+            .kategori button {
+                padding: 12px 4px;
+                font-size: 12px;
+            }
+
+            .pilihan {
+                gap: 7px;
+            }
+
+            .pilihan button {
+                font-size: 13px;
+            }
+
+            .pilihan button .emoji {
+                font-size: 28px;
+            }
+
+            .skor p {
+                margin: 5px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>GAME SUIT</h1>
+
+        <h3 class="judul-kategori">Pilih Jenis Suit!</h3>
+
+        <div class="kategori">
+
+            <button id="kategori-hewan"
+                    class="aktif"
+                    onclick="pilihKategori('hewan')">
+                🐘<br>
+                Suit Hewan
+            </button>
+
+            <button id="kategori-benda"
+                    onclick="pilihKategori('benda')">
+                🪨<br>
+                Suit Benda
+            </button>
+
+            <button id="kategori-jari"
+                    onclick="pilihKategori('jari')">
+                ✋<br>
+                Suit Jari
+            </button>
+
+        </div>
+
+        <div class="aturan">
+
+            <h3 id="judulAturan">📌 Aturan Suit Hewan</h3>
+
+            <div id="isiAturan">
+                <p>🐘 Gajah mengalahkan Manusia</p>
+                <p>👨 Manusia mengalahkan Semut</p>
+                <p>🐜 Semut mengalahkan Gajah</p>
+            </div>
+
+        </div>
+
+        <!-- PILIHAN SUIT -->
+        <h2 class="judul-pilihan">Pilih Suit Sign Kamu!</h2>
+
+        <div class="pilihan" id="daftarPilihan">
+
+            <button onclick="mainSuit('gajah')">
+                <span class="emoji">🐘</span>
+                Gajah
+            </button>
+
+            <button onclick="mainSuit('manusia')">
+                <span class="emoji">👨</span>
+                Manusia
+            </button>
+
+            <button onclick="mainSuit('semut')">
+                <span class="emoji">🐜</span>
+                Semut
+            </button>
+
+        </div>
+
+        <div class="hasil">
+
+            <h2>HASIL PERMAINAN</h2>
+
+            <p>
+                Jenis Suit:
+                <strong id="jenisSuit">Suit Hewan</strong>
+            </p>
+
+            <p>
+                Pilihan Kamu:
+                <strong id="pilihanUser">-</strong>
+            </p>
+
+            <p>
+                Pilihan Komputer:
+                <strong id="pilihanKomputer">-</strong>
+            </p>
+
+            <h2 id="hasilAkhir">Silakan pilih suit!</h2>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        let skorMenang = 0;
+        let skorKalah = 0;
+        let skorSeri = 0;
+        let kategoriAktif = "hewan";
+
+        const dataSuit = {
+
+            hewan: {
+                nama: "Suit Hewan",
+
+                pilihan: ["gajah", "manusia", "semut"],
+
+                aturan: [
+                    "🐘 Gajah mengalahkan Manusia",
+                    "👨 Manusia mengalahkan Semut",
+                    "🐜 Semut mengalahkan Gajah"
+                ],
+
+                emoji: {
+                    gajah: "🐘",
+                    manusia: "👨",
+                    semut: "🐜"
+                },
+
+                menangAtas: {
+                    gajah: "manusia",
+                    manusia: "semut",
+                    semut: "gajah"
+                }
+            },
+
+            benda: {
+                nama: "Suit Benda",
+
+                pilihan: ["batu", "gunting", "kertas"],
+
+                aturan: [
+                    "🪨 Batu mengalahkan Gunting",
+                    "✂️ Gunting mengalahkan Kertas",
+                    "📄 Kertas mengalahkan Batu"
+                ],
+
+                emoji: {
+                    batu: "🪨",
+                    gunting: "✂️",
+                    kertas: "📄"
+                },
+
+                menangAtas: {
+                    batu: "gunting",
+                    gunting: "kertas",
+                    kertas: "batu"
+                }
+            },
+
+            jari: {
+                nama: "Suit Jari",
+
+                pilihan: ["jempol", "telunjuk", "kelingking"],
+
+                aturan: [
+                    "👍 Jempol mengalahkan Telunjuk",
+                    "☝️ Telunjuk mengalahkan Kelingking",
+                    "🤙 Kelingking mengalahkan Jempol"
+                ],
+
+                emoji: {
+                    jempol: "👍",
+                    telunjuk: "☝️",
+                    kelingking: "🤙"
+                },
+
+                menangAtas: {
+                    jempol: "telunjuk",
+                    telunjuk: "kelingking",
+                    kelingking: "jempol"
+                }
+            }
+
+        };
+
+        function pilihKategori(kategori) {
+
+            // Mengubah kategori aktif
+            kategoriAktif = kategori;
+
+            // Mengambil data sesuai kategori
+            const data = dataSuit[kategori];
+
+            // Mengubah tombol kategori yang aktif
+            document.querySelectorAll(".kategori button")
+                .forEach(function(button) {
+                    button.classList.remove("aktif");
+                });
+
+            document.getElementById("kategori-" + kategori)
+                .classList.add("aktif");
+
+            // Mengubah judul aturan
+            document.getElementById("judulAturan").textContent =
+                "📌 Aturan " + data.nama;
+
+            // Menampilkan aturan sesuai kategori
+            const isiAturan = document.getElementById("isiAturan");
+
+            isiAturan.innerHTML = "";
+
+            data.aturan.forEach(function(aturan) {
+
+                const paragraf = document.createElement("p");
+
+                paragraf.textContent = aturan;
+
+                isiAturan.appendChild(paragraf);
+
+            });
+
+            document.getElementById("jenisSuit").textContent =
+                data.nama;
+
+            const daftarPilihan =
+                document.getElementById("daftarPilihan");
+
+            daftarPilihan.innerHTML = "";
+
+            data.pilihan.forEach(function(pilihan) {
+
+                const tombol = document.createElement("button");
+
+                const emoji = data.emoji[pilihan];
+
+                tombol.innerHTML =
+                    '<span class="emoji">' + emoji + '</span>' +
+                    formatNama(pilihan);
+
+                tombol.onclick = function() {
+                    mainSuit(pilihan);
+                };
+
+                daftarPilihan.appendChild(tombol);
+
+            });
+
+            document.getElementById("pilihanUser").textContent = "-";
+
+            document.getElementById("pilihanKomputer").textContent = "-";
+
+            document.getElementById("hasilAkhir").textContent =
+                "Silakan pilih suit!";
+
+            document.getElementById("hasilAkhir").style.color =
+                "#5b4bdb";
+
+        }
+
+        function mainSuit(pilihanUser) {
+
+            const data = dataSuit[kategoriAktif];
+
+            const pilihanKomputer =
+                data.pilihan[
+                    Math.floor(Math.random() * data.pilihan.length)
+                ];
+
+            document.getElementById("pilihanUser").textContent =
+                data.emoji[pilihanUser] + " " +
+                formatNama(pilihanUser);
+
+            document.getElementById("pilihanKomputer").textContent =
+                data.emoji[pilihanKomputer] + " " +
+                formatNama(pilihanKomputer);
+
+            let hasil;
+
+            const hasilAkhir =
+                document.getElementById("hasilAkhir");
+
+            if (pilihanUser === pilihanKomputer) {
+
+                hasil = "SERI!";
+                alert("Hasilnya seri!");
+
+                hasilAkhir.style.color = "#d97706";
+
+            } else if (
+                data.menangAtas[pilihanUser] === pilihanKomputer
+            ) {
+
+                hasil = "MENANG!";
+                alert("Selamat, kamu menang!");
+
+                hasilAkhir.style.color = "#16a34a";
+
+            } else {
+
+                hasil = "KALAH!";
+                alert("Maaf, kamu kalah!");
+
+                hasilAkhir.style.color = "#dc2626";
+
+            }
+
+            hasilAkhir.textContent = hasil;
+
+            perbaruiSkor();
+
+        }
+
+        function formatNama(nama) {
+
+            return nama.charAt(0).toUpperCase() + nama.slice(1);
+
+        }
+
+    </script>
+
+</body>
+</html>
